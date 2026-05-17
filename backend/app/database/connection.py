@@ -1,27 +1,17 @@
-from motor.motor_asyncio import (
-    AsyncIOMotorClient
-)
-
+from motor.motor_asyncio import AsyncIOMotorClient
 from dotenv import load_dotenv
-
 import os
 
 load_dotenv()
 
+MONGO_URL = os.getenv("MONGO_DB_URI")
+DATABASE_NAME = os.getenv("DATABASE_NAME")
 
-MONGO_URL=os.getenv(
-    "MONGO_URL"
-)
+print("URL:", MONGO_URL)
+print("DB:", DATABASE_NAME)
 
-DATABASE_NAME=os.getenv(
-    "DATABASE_NAME"
-)
-
-
-client=AsyncIOMotorClient(
+client = AsyncIOMotorClient(
     MONGO_URL
 )
 
-db=client[
-    DATABASE_NAME
-]
+db = client[DATABASE_NAME]

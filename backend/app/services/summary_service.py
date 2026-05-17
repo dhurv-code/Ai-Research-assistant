@@ -9,26 +9,29 @@ class SummaryService:
     def summarize(text):
 
         prompt=f"""
-Summarize this paper:
+You are analyzing a research paper abstract.
+
+Abstract:
 
 {text}
 
 Return:
 
-1 contribution
+1. Main contribution
 
-2 methods
+2. Methods used
 
-3 limitations
+3. Limitations
 
-4 future scope
+4. Future scope
+
+If information is missing,
+state "Not explicitly mentioned".
 """
 
-
         return (
-            LLMService
-            .generate_answer(
+            LLMService.generate_answer(
                 prompt,
-                []
+                [text]
             )
         )

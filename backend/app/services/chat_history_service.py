@@ -34,7 +34,7 @@ class ChatHistoryService:
             data
         )
 
-            @staticmethod
+    @staticmethod
     async def get_history(
         session_id
     ):
