@@ -52,6 +52,9 @@ class PaperMonitor:
                     "summary":
                     paper.summary,
 
+                    "ai_summary":
+                    ai_summary
+
                     "pdf_url":
                     paper.pdf_url,
 
