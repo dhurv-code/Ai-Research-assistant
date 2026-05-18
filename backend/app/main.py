@@ -9,9 +9,10 @@ from fastapi.middleware.cors import CORSMiddleware
 
 @asynccontextmanager
 async def lifespan(app:FastAPI):
-    scheduler.start()
+    print(
+        "Starting app..."
+    )
     yield
-    scheduler.shutdown()
 
 app=FastAPI(title="AI Research Assistant",version="1.0",lifespan=lifespan)
 app.add_middleware(CORSMiddleware,allow_origins=["*"],allow_methods=["*"],allow_headers=["*"])
