@@ -1,9 +1,11 @@
 from fastapi import APIRouter, UploadFile, File, Depends
 from app.core.security import get_current_user
-from app.services.pdf_service import PDFService
-from app.services.chunk_service import ChunkService
-from app.services.embedding_service import EmbeddingService
-from app.vectorstore.chroma_service import ChromaService
+
+# comment out for heavy for deploying on render, restore if move to aws or paid deployment
+# from app.services.pdf_service import PDFService
+# from app.services.chunk_service import ChunkService
+# from app.services.embedding_service import EmbeddingService
+# from app.vectorstore.chroma_service import ChromaService
 
 from app.database.connection import db
 
@@ -29,6 +31,10 @@ async def upload_pdf(
     file:UploadFile=File(...),
     current_user: dict = Depends(get_current_user)
 ):
+    from app.services.pdf_service import PDFService
+    from app.services.chunk_service import ChunkService
+    from app.services.embedding_service import EmbeddingService
+    from app.vectorstore.chroma_service import ChromaService
 
 
     file_path=f"{UPLOAD_DIR}/{file.filename}"
