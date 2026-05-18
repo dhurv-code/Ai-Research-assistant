@@ -30,7 +30,6 @@ export default function PaperCard({ paper }) {
           View details
           <ArrowRight className="h-4 w-4" />
         </Link>
-        <span className="rounded-full bg-white/5 px-3 py-1 text-xs uppercase tracking-[0.3em] text-slate-400">Ask AI</span>
       </div>
     </article>
   )
