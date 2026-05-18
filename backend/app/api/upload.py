@@ -1,4 +1,5 @@
-from fastapi import APIRouter, UploadFile, File
+from fastapi import APIRouter, UploadFile, File, Depends
+from app.core.security import get_current_user
 from app.services.pdf_service import PDFService
 from app.services.chunk_service import ChunkService
 from app.services.embedding_service import EmbeddingService
@@ -25,7 +26,8 @@ os.makedirs(
 
 @router.post("")
 async def upload_pdf(
-    file:UploadFile=File(...)
+    file:UploadFile=File(...),
+    current_user: dict = Depends(get_current_user)
 ):
 
 
@@ -68,6 +70,8 @@ async def upload_pdf(
 
         "filename":
         file.filename,
+
+        "user_id": current_user.get("id"),
 
         "total_chunks":
         len(chunks)

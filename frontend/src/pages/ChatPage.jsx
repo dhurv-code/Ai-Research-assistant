@@ -57,8 +57,8 @@ export default function ChatPage() {
         {selectedPaper && (
           <div className="mt-6 rounded-3xl border border-white/10 bg-slate-900/70 p-5 text-slate-200">
             <p className="text-sm text-slate-400">Active paper</p>
-            <h3 className="mt-2 text-lg font-semibold text-white">{selectedPaper.title}</h3>
-            <p className="mt-2 text-sm text-slate-400">{selectedPaper.summary || selectedPaper.abstract}</p>
+            <h3 className="mt-2 text-lg font-semibold text-white">{selectedPaper.title || selectedPaper.filename}</h3>
+            <p className="mt-2 text-sm text-slate-400">{selectedPaper.summary || selectedPaper.abstract || selectedPaper.filename}</p>
           </div>
         )}
       </section>

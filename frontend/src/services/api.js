@@ -107,7 +107,14 @@ export async function fetchDiscoverPapers() {
 export async function fetchPapers() {
   try {
     const { data } = await api.get('/papers')
-    return data || fallbackPapers
+    if (Array.isArray(data) && data.length > 0) {
+      return data.map((paper) => ({
+        ...paper,
+        id: paper.id || paper._id || paper.filename || '',
+        title: paper.title || paper.filename || 'Untitled paper',
+      }))
+    }
+    return fallbackPapers
   } catch (error) {
     return fallbackPapers
   }
@@ -210,3 +217,5 @@ export async function fetchTrendingTopics() {
     return fallbackTopics
   }
 }
+
+export default api

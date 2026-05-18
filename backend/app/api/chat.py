@@ -1,4 +1,5 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from app.core.security import get_current_user
 
 from app.schemas.chat_schema import (QuestionRequest)
 from app.services.retrieval_service import (RetrievalService)
@@ -8,7 +9,7 @@ from app.services.chat_history_service import (ChatHistoryService)
 router=APIRouter(prefix="/chat",tags=["Chat"])
 
 @router.post("")
-async def ask_question(data:QuestionRequest):
+async def ask_question(data:QuestionRequest, current_user:dict = Depends(get_current_user)):
     docs=RetrievalService.search(data.question,data.paper_id)
 
     answer=(LLMService.generate_answer(data.question,docs))

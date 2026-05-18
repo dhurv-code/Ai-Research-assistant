@@ -27,16 +27,30 @@ export default function LandingPage() {
             </p>
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               <Link
-                to="/dashboard"
+                to="/signup"
                 className="inline-flex items-center justify-center rounded-3xl bg-sky-400 px-6 py-4 text-sm font-semibold text-slate-950 transition hover:bg-sky-300"
               >
-                Go to dashboard
+                Sign up
               </Link>
+              <Link
+                to="/login"
+                className="inline-flex items-center justify-center rounded-3xl border border-white/10 bg-white/5 px-6 py-4 text-sm font-semibold text-white transition hover:border-sky-400/40 hover:bg-white/10"
+              >
+                Sign in
+              </Link>
+            </div>
+            <div className="mt-6 flex flex-col gap-4 sm:flex-row">
               <Link
                 to="/discover"
                 className="inline-flex items-center justify-center rounded-3xl border border-white/10 bg-white/5 px-6 py-4 text-sm font-semibold text-white transition hover:border-sky-400/40 hover:bg-white/10"
               >
                 Discover papers
+              </Link>
+              <Link
+                to="/dashboard"
+                className="inline-flex items-center justify-center rounded-3xl bg-slate-900/80 px-6 py-4 text-sm font-semibold text-white transition hover:bg-slate-800"
+              >
+                Go to dashboard
               </Link>
             </div>
           </motion.div>

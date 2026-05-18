@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from app.api import (upload,chat,papers,history,topics,auto_papers)
+from app.api import auth
 from app.automation.scheduler import *
 from contextlib import asynccontextmanager
 from fastapi.middleware.cors import CORSMiddleware
@@ -21,6 +22,7 @@ app.include_router(papers.router)
 app.include_router(history.router)
 app.include_router(topics.router)
 app.include_router(auto_papers.router)
+app.include_router(auth.router)
 @app.get("/")
 def home():
     return{
