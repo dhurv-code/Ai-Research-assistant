@@ -18,7 +18,7 @@ print("6")
 from app.api import auto_papers
 print("7")
 from app.api import auth
-from app.automation.scheduler import *
+# from app.automation.scheduler import *
 from contextlib import asynccontextmanager
 from fastapi.middleware.cors import CORSMiddleware
 
