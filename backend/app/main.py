@@ -32,7 +32,11 @@ async def lifespan(app:FastAPI):
     yield
 
 app=FastAPI(title="AI Research Assistant",version="1.0",lifespan=lifespan)
-app.add_middleware(CORSMiddleware,allow_origins=["https://ai-research-assistant-tan-chi.vercel.app/"],allow_methods=["*"],allow_headers=["*"])
+app.add_middleware(CORSMiddleware,
+    allow_origins=["https://ai-research-assistant-tan-chi.vercel.app","http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"])
 
 app.include_router(upload.router)
 app.include_router(chat.router)
