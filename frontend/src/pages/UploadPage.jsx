@@ -49,8 +49,8 @@ export default function UploadPage() {
       <section className="rounded-[2rem] border border-white/10 bg-slate-950/70 p-8 shadow-soft backdrop-blur-xl">
         <h3 className="text-xl font-semibold text-white">Recently uploaded</h3>
         <div className="mt-6 grid gap-4 md:grid-cols-2">
-          {recent.slice(0, 4).map((paper) => (
-            <div key={paper.id || paper.title} className="rounded-3xl border border-white/10 bg-slate-900/70 p-5 text-slate-300">
+          {recent.slice(0, 4).map((paper, index) => (
+            <div key={paper.id || `${paper.title}-${index}`} className="rounded-3xl border border-white/10 bg-slate-900/70 p-5 text-slate-300">
               <h4 className="font-semibold text-white">{paper.title}</h4>
               <p className="mt-2 text-sm text-slate-400">{paper.topic || 'Research Automation'}</p>
               <div className="mt-4 flex items-center justify-between text-xs uppercase tracking-[0.28em] text-slate-500">

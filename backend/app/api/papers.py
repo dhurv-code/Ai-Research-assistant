@@ -6,7 +6,7 @@ router=APIRouter(
     tags=["Papers"]
 )
 
-@router.get("/")
+@router.get("")
 async def get_papers():
 
     papers=[]

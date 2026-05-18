@@ -24,8 +24,12 @@ export default function ChatPage() {
     setMessages((current) => [...current, userMessage])
     setPrompt('')
     setLoading(true)
-    const response = await sendChatMessage({ paperId: selectedId, message: prompt })
-    const botMessage = { id: `${Date.now()}-assistant`, role: 'assistant', text: response.reply || response.message || 'Unable to generate a response.' }
+    const response = await sendChatMessage({ question: prompt, paperId: selectedId })
+    const botMessage = {
+      id: `${Date.now()}-assistant`,
+      role: 'assistant',
+      text: response.answer || response.reply || response.message || 'Unable to generate a response.',
+    }
     setMessages((current) => [...current, botMessage])
     setLoading(false)
   }
@@ -61,8 +65,8 @@ export default function ChatPage() {
       <section className="rounded-[2rem] border border-white/10 bg-slate-950/70 p-6 shadow-soft backdrop-blur-xl">
         <div className="grid gap-6">
           <div className="flex flex-col gap-4">
-            {messages.map((message) => (
-              <ChatBubble key={message.id} message={message.text} role={message.role} />
+            {messages.map((message, index) => (
+              <ChatBubble key={message.id || index} message={message.text} role={message.role} />
             ))}
             {loading && <LoadingState label="Thinking through your research question..." />}
           </div>

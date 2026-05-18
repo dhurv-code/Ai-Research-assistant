@@ -7,7 +7,7 @@ from app.services.chat_history_service import (ChatHistoryService)
 
 router=APIRouter(prefix="/chat",tags=["Chat"])
 
-@router.post("/")
+@router.post("")
 async def ask_question(data:QuestionRequest):
     docs=RetrievalService.search(data.question,data.paper_id)
 

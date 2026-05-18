@@ -8,7 +8,7 @@ router=APIRouter(
 )
 
 
-@router.get("/")
+@router.get("")
 async def discover():
 
     papers=[]

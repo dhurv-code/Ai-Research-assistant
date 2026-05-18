@@ -2,13 +2,18 @@ from fastapi import FastAPI
 from app.api import (upload,chat,papers,history,topics,auto_papers)
 from app.automation.scheduler import *
 from contextlib import asynccontextmanager
+from fastapi.middleware.cors import CORSMiddleware
+
+
+
 @asynccontextmanager
 async def lifespan(app:FastAPI):
     scheduler.start()
     yield
     scheduler.shutdown()
 
-app=FastAPI(title="AI Research Assistant",version="1.0")
+app=FastAPI(title="AI Research Assistant",version="1.0",lifespan=lifespan)
+app.add_middleware(CORSMiddleware,allow_origins=["*"],allow_methods=["*"],allow_headers=["*"])
 
 app.include_router(upload.router)
 app.include_router(chat.router)

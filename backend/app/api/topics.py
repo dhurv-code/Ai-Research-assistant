@@ -5,7 +5,7 @@ router=APIRouter(
     prefix="/topics",
     tags=["Topics"])
 
-@router.post("/")
+@router.post("")
 async def save_topics(topics:list[str]):
     data={
         "user_id":"demo_user",

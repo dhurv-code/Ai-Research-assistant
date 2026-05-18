@@ -3,13 +3,17 @@ from app.services.pdf_service import PDFService
 from app.services.chunk_service import ChunkService
 from app.services.embedding_service import EmbeddingService
 from app.vectorstore.chroma_service import ChromaService
+
 from app.database.connection import db
+
 import os
 
-router = APIRouter(
+
+router=APIRouter(
     prefix="/upload",
     tags=["Upload"]
 )
+
 
 UPLOAD_DIR="data/uploads"
 
@@ -19,49 +23,93 @@ os.makedirs(
 )
 
 
-@router.post("/")
+@router.post("")
 async def upload_pdf(
-        file: UploadFile=File(...)
+    file:UploadFile=File(...)
 ):
+
 
     file_path=f"{UPLOAD_DIR}/{file.filename}"
 
-    with open(file_path,"wb") as f:
+
+    with open(
+        file_path,
+        "wb"
+    ) as f:
 
         content=await file.read()
 
         f.write(content)
 
-    extracted_text=PDFService.extract_text(
-        file_path
+
+    extracted_text=(
+        PDFService.extract_text(
+            file_path
+        )
     )
 
-    chunks=ChunkService.split_text(
-        extracted_text
+
+    chunks=(
+        ChunkService.split_text(
+            extracted_text
+        )
     )
 
-    vector=EmbeddingService.create_embeddings(chunks)
-    ChromaService.store(paper_id,chunks,vector)
 
-    paper_data={"filename":file.filename, "total_chunks":len(chunks)}
-    result=await db.papers.insert_one(paper_data)
+    vectors=(
+        EmbeddingService
+        .create_embeddings(
+            chunks
+        )
+    )
 
-    paper_id=str(result.inserted_id)
+
+    paper_data={
+
+        "filename":
+        file.filename,
+
+        "total_chunks":
+        len(chunks)
+
+    }
+
+
+    result=await (
+        db.papers.insert_one(
+            paper_data
+        )
+    )
+
+
+    paper_id=str(
+        result.inserted_id
+    )
+
+
+    ChromaService.store(
+
+        paper_id,
+
+        chunks,
+
+        vectors
+
+    )
+
 
     return{
 
-        "paper_id":str(result.inserted_id),
+        "paper_id":
+        paper_id,
 
-        "filename":file.filename,
+        "filename":
+        file.filename,
 
-        "total_characters":
-        len(extracted_text),
-
-        "chunks_created":
+        "chunks":
         len(chunks),
 
-        "sample_chunk":
-        chunks[0],
+        "status":
+        "uploaded"
 
-        "status":"stored successfully"
     }

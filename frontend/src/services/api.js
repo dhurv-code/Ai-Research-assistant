@@ -154,7 +154,13 @@ export async function uploadPaper(file, onUploadProgress) {
   }
 }
 
-export async function sendChatMessage(payload) {
+export async function sendChatMessage({ question, paperId, paper_id, sessionId, session_id }) {
+  const payload = {
+    question,
+    paper_id: paper_id || paperId,
+    session_id: session_id || sessionId || `${Date.now()}`,
+  }
+
   try {
     const { data } = await api.post('/chat', payload)
     return data
