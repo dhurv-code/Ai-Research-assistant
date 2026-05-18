@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 print("1")
-# from app.api import upload
+from app.api import upload
 print("2")
 
 from app.api import chat
@@ -34,7 +34,7 @@ async def lifespan(app:FastAPI):
 app=FastAPI(title="AI Research Assistant",version="1.0",lifespan=lifespan)
 app.add_middleware(CORSMiddleware,allow_origins=["*"],allow_methods=["*"],allow_headers=["*"])
 
-# app.include_router(upload.router)
+app.include_router(upload.router)
 app.include_router(chat.router)
 app.include_router(papers.router)
 app.include_router(history.router)
