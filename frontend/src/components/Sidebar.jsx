@@ -8,7 +8,9 @@ import {
   Sparkles,
   Settings,
   Clock3,
+  LogOut,
 } from 'lucide-react'
+import { useAuth } from '../context/AuthContext'
 
 const links = [
   { label: 'Dashboard', to: '/dashboard', icon: LayoutGrid },
@@ -21,6 +23,8 @@ const links = [
 ]
 
 export default function Sidebar() {
+  const { logout } = useAuth()
+
   return (
     <aside className="hidden w-80 shrink-0 flex-col gap-6 rounded-[2rem] border border-white/10 bg-slate-950/70 p-6 backdrop-blur-xl lg:flex">
       <div className="space-y-2">
@@ -47,6 +51,14 @@ export default function Sidebar() {
             </NavLink>
           )
         })}
+        <button
+          type="button"
+          onClick={logout}
+          className="mt-2 flex w-full items-center gap-3 rounded-3xl px-4 py-3 text-sm font-medium text-slate-400 transition hover:bg-white/5 hover:text-white"
+        >
+          <LogOut className="h-4 w-4" />
+          Logout
+        </button>
       </nav>
       <div className="mt-auto rounded-3xl border border-white/10 bg-slate-900/80 p-5 text-sm text-slate-300">
         <p className="font-medium text-white">AI research automated</p>

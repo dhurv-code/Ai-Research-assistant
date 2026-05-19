@@ -51,6 +51,7 @@ export function AuthProvider({ children }) {
     setToken(null)
     setStatus('idle')
     setError(null)
+    authService.logout()
   }
 
   const forgotPassword = async (email) => {

@@ -39,9 +39,17 @@ export async function resetPassword(token, new_password) {
   }
 }
 
+export const logout = () => {
+  localStorage.removeItem('token')
+  localStorage.removeItem('user')
+  localStorage.removeItem('authToken')
+  window.location.href = '/login'
+}
+
 export default {
   signup,
   login,
   forgotPassword,
   resetPassword,
+  logout,
 }
