@@ -8,18 +8,29 @@ const api = axios.create({
 })
 
 api.interceptors.response.use(
+
   (response) => response,
+
   (error) => {
+
     if (error.response?.status === 401) {
-      localStorage.removeItem('token')
-      localStorage.removeItem('user')
-      localStorage.removeItem('authToken')
-      delete api.defaults.headers.common.Authorization
-      window.location.href = '/login'
+
+      console.log(
+        "401 received from:",
+        error.config?.url
+      )
+
+      console.log(
+        "Response:",
+        error.response?.data
+      )
+
     }
 
     return Promise.reject(error)
+
   }
+
 )
 
 export async function wakeBackend() {
