@@ -2,54 +2,32 @@ import arxiv
 
 from app.database.connection import db
 
-from app.services.summary_service import (
-    SummaryService
-)
-
-
+from app.services.summary_service import (SummaryService)
 class PaperMonitor:
-
     @staticmethod
     async def monitor():
-
         print("Monitor started")
-
         topics=[]
-
         async for item in db.topics.find():
-
             print(
                 "Mongo item:",
                 item
             )
 
-            topics.extend(
-                item["topics"]
-            )
-
-
-        print(
-            "Topics found:",
-            topics
-        )
-
+            topics.extend(item["topics"])
+        print("Topics found:",topics)
 
         client=arxiv.Client()
 
-
         for topic in topics:
-
             print(
                 "Searching:",
                 topic
             )
-
-
             search=arxiv.Search(
 
-                query=topic,
-
-                max_results=2
+                query=f"(all:{topic})",
+                max_results=5
 
             )
 
