@@ -17,8 +17,13 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage'
 import ResetPasswordPage from './pages/ResetPasswordPage'
 import NotFoundPage from './pages/NotFoundPage'
 import ProtectedRoute from './components/ProtectedRoute'
+import { useEffect } from 'react'
+import { wakeBackend } from './services/api'
 
 function App() {
+  useEffect(() => {
+    wakeBackend()
+  }, [])
   return (
     <ThemeProvider>
       <AuthProvider>

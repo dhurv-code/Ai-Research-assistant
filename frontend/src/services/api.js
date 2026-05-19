@@ -7,6 +7,15 @@ const api = axios.create({
   },
 })
 
+export async function wakeBackend() {
+  try {
+    await api.get("/")
+    console.log("Backend wake request sent")
+  } catch (error) {
+    console.log("Backend waking...", error)
+  }
+}
+
 const fallbackPapers = [
   {
     id: 'paper-001',
