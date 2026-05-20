@@ -6,6 +6,8 @@ from app.vectorstore.chroma_service import (
     collection
 )
 
+import os
+
 class RetrievalService:
 
     @staticmethod
@@ -14,18 +16,24 @@ class RetrievalService:
         paper_id
     ):
 
-        model = (
+        if os.getenv("RENDER")=="true":
+
+            return [
+                "PDF search unavailable on free deployment"
+            ]
+
+        model=(
             EmbeddingService
             .get_model()
         )
 
-        query_embedding = (
+        query_embedding=(
             model.encode(
                 question
             )
         )
 
-        results = (
+        results=(
             collection.query(
                 query_embeddings=[
                     query_embedding.tolist()
