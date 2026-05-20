@@ -38,10 +38,22 @@ export function AuthProvider({ children }) {
     setError(null)
     const result = await authService.login(email, password)
     if (result?.access_token) {
-      setToken(result.access_token)
-      setStatus('success')
-      return result
-    }
+
+    localStorage.setItem(
+      "authToken",
+      result.access_token
+    )
+
+    setToken(
+      result.access_token
+    )
+
+    setStatus(
+      'success'
+    )
+
+    return result
+}
     setStatus('error')
     setError(result.error || 'Login failed')
     return result

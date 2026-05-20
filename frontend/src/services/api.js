@@ -7,6 +7,18 @@ const api = axios.create({
   },
 })
 
+const token = localStorage.getItem(
+  "authToken"
+)
+
+if(token){
+
+  api.defaults.headers.common[
+    "Authorization"
+  ]=`Bearer ${token}`
+
+}
+
 api.interceptors.response.use(
 
   (response) => response,
@@ -196,20 +208,95 @@ export async function uploadPaper(file, onUploadProgress) {
   }
 }
 
-export async function sendChatMessage({ question, paperId, paper_id, sessionId, session_id }) {
+// export async function sendChatMessage({ question, paperId, paper_id, sessionId, session_id }) {
+//   const payload = {
+//     question,
+//     paper_id: paper_id || paperId,
+//     session_id: session_id || sessionId || `${Date.now()}`,
+//   }
+
+//   try {
+//     const { data } = await api.post('/chat', payload)
+//     return data
+//   } catch (error) {
+//     return { reply: 'Unable to reach the assistant right now. Please try again later.' }
+//   }
+// }
+
+export async function sendChatMessage({
+  question,
+  paperId,
+  paper_id,
+  sessionId,
+  session_id
+}) {
+
   const payload = {
+
     question,
-    paper_id: paper_id || paperId,
-    session_id: session_id || sessionId || `${Date.now()}`,
+
+    paper_id:
+      paper_id || paperId,
+
+    session_id:
+      session_id ||
+      sessionId ||
+      `${Date.now()}`
   }
 
   try {
-    const { data } = await api.post('/chat', payload)
+
+    console.log(
+      "Sending payload:",
+      payload
+    )
+
+    const { data } =
+      await api.post(
+        '/chat',
+        payload
+      )
+
+    console.log(
+      "Chat success:",
+      data
+    )
+
     return data
-  } catch (error) {
-    return { reply: 'Unable to reach the assistant right now. Please try again later.' }
+
   }
+
+  catch(error){
+
+ console.log("FULL:", error)
+
+ console.log(
+   "MESSAGE:",
+   error.message
+ )
+
+ console.log(
+   "REQUEST:",
+   error.request
+ )
+
+ console.log(
+   "RESPONSE:",
+   error.response
+ )
+
+ return {
+
+   reply:
+   `ERROR:
+   ${error.message}`
+
+ }
+
 }
+
+}
+
 
 export async function fetchHistory() {
   try {

@@ -1,18 +1,38 @@
+from sentence_transformers import SentenceTransformer
+
 class EmbeddingService:
 
-    @staticmethod
+    model = None
+
+    @classmethod
+    def get_model(cls):
+
+        if cls.model is None:
+
+            print(
+                "Loading embedding model..."
+            )
+
+            cls.model = SentenceTransformer(
+                "all-MiniLM-L6-v2"
+            )
+
+        return cls.model
+
+
+    @classmethod
     def create_embeddings(
+        cls,
         chunks
     ):
 
-        print(
-            "Temporary deployment embeddings"
+        model = cls.get_model()
+
+        embeddings = model.encode(
+            chunks
         )
 
-        return [
-            [0] * 384
-            for _ in chunks
-        ]
+        return embeddings
 
 # from sentence_transformers import (SentenceTransformer)
 

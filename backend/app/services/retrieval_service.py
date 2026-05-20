@@ -5,6 +5,7 @@ from app.services.embedding_service import (
 from app.vectorstore.chroma_service import (
     collection
 )
+
 class RetrievalService:
 
     @staticmethod
@@ -12,23 +13,35 @@ class RetrievalService:
         question,
         paper_id
     ):
-        query_embedding=(
+
+        model = (
             EmbeddingService
-            .model
-            .encode(
+            .get_model()
+        )
+
+        query_embedding = (
+            model.encode(
                 question
             )
         )
-        results=(
+
+        results = (
             collection.query(
-                query_embeddings=[query_embedding.tolist()],
+                query_embeddings=[
+                    query_embedding.tolist()
+                ],
+
                 n_results=4,
-                where={"paper_id":paper_id}
+
+                where={
+                    "paper_id":
+                    paper_id
+                }
             )
         )
 
-
         return (
-            results
-            ["documents"][0]
+            results[
+                "documents"
+            ][0]
         )
