@@ -34,25 +34,26 @@ class RetrievalService:
         )
 
         query_embedding=(
-            model.encode(
-                question
-            )
-        )
+    EmbeddingService
+    .create_query_embedding(
+        question
+    )
+)
 
         results=(
-            get_collection().query(
-                query_embeddings=[
-                    query_embedding.tolist()
-                ],
+    get_collection().query(
+        query_embeddings=[
+            query_embedding
+        ],
 
-                n_results=4,
+        n_results=4,
 
-                where={
-                    "paper_id":
-                    paper_id
-                }
-            )
-        )
+        where={
+            "paper_id":
+            paper_id
+        }
+    )
+)
 
         return results[
             "documents"

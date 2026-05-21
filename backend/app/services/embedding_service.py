@@ -1,25 +1,15 @@
-from sentence_transformers import SentenceTransformer
+from chromadb.utils.embedding_functions import (
+    SentenceTransformerEmbeddingFunction
+)
 
 class EmbeddingService:
 
-    model = None
-
-    @classmethod
-    def get_model(cls):
-
-        if cls.model is None:
-
-            print(
-                "Loading embedding model..."
-            )
-
-            cls.model = SentenceTransformer(
-                "all-MiniLM-L6-v2",
-                device="cpu"
-            )
-
-        return cls.model
-
+    embedding_function = (
+        SentenceTransformerEmbeddingFunction(
+            model_name="all-MiniLM-L6-v2",
+            device="cpu"
+        )
+    )
 
     @classmethod
     def create_embeddings(
@@ -27,42 +17,19 @@ class EmbeddingService:
         chunks
     ):
 
-        model = cls.get_model()
-
-        embeddings = model.encode(
+        return cls.embedding_function(
             chunks
         )
 
-        return embeddings
 
-# from sentence_transformers import (SentenceTransformer)
+    @classmethod
+    def create_query_embedding(
+        cls,
+        text
+    ):
 
-# class EmbeddingService:
-
-#     model = None
-
-#     @classmethod
-#     def get_model(cls):
-
-#         if cls.model is None:
-
-#             print("Loading embedding model...")
-#             cls.model = (SentenceTransformer("all-MiniLM-L6-v2"))
-
-#         return cls.model
-#     @classmethod
-#     def create_embeddings(
-#         cls,chunks
-#     ):
-#         model = cls.get_model()
-#         embeddings = model.encode(chunks)
-#         return embeddings
-
-# from sentence_transformers import SentenceTransformer
-# class EmbeddingService:
-#     model=SentenceTransformer("all-MiniLM-L6-v2")
-
-#     @classmethod
-#     def create_embeddings(cls, chunks):
-#         vectors=cls.model.encode(chunks)
-#         return vectors
+        return (
+            cls.embedding_function(
+                [text]
+            )[0]
+        )
