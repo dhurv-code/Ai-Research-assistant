@@ -16,10 +16,12 @@ class RetrievalService:
         paper_id
     ):
 
-        if os.getenv("RENDER")=="true":
+        if os.getenv(
+            "RENDER"
+        )=="true":
 
             return [
-                "PDF search unavailable on free deployment"
+                "Search temporarily unavailable on free deployment"
             ]
 
         model=(
@@ -48,8 +50,6 @@ class RetrievalService:
             )
         )
 
-        return (
-            results[
-                "documents"
-            ][0]
-        )
+        return results[
+            "documents"
+        ][0]
