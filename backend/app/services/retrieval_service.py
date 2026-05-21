@@ -2,9 +2,13 @@ from app.services.embedding_service import (
     EmbeddingService
 )
 
-from app.vectorstore.chroma_service import (
-    collection
-)
+def get_collection():
+
+    from app.vectorstore.chroma_service import (
+        collection
+    )
+
+    return collection
 
 import os
 
@@ -36,7 +40,7 @@ class RetrievalService:
         )
 
         results=(
-            collection.query(
+            get_collection().query(
                 query_embeddings=[
                     query_embedding.tolist()
                 ],
