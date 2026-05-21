@@ -14,7 +14,8 @@ class EmbeddingService:
             )
 
             cls.model = SentenceTransformer(
-                "all-MiniLM-L6-v2"
+                "all-MiniLM-L6-v2",
+                device="cpu"
             )
 
         return cls.model
