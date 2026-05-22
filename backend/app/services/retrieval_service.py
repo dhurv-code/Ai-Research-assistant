@@ -26,7 +26,6 @@ class RetrievalService:
         question
     )
 )
-
         results=(
     get_collection().query(
         query_embeddings=[
