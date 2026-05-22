@@ -20,20 +20,7 @@ class RetrievalService:
         paper_id
     ):
 
-        if os.getenv(
-            "RENDER"
-        )=="true":
-
-            return [
-                "Search temporarily unavailable on free deployment"
-            ]
-
-        model=(
-            EmbeddingService
-            .get_model()
-        )
-
-        query_embedding=(
+        query_embedding = (
     EmbeddingService
     .create_query_embedding(
         question
@@ -52,9 +39,7 @@ class RetrievalService:
             "paper_id":
             paper_id
         }
-    )
-)
-
+    ))
         return results[
             "documents"
         ][0]

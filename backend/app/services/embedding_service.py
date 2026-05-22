@@ -6,8 +6,7 @@ class EmbeddingService:
 
     embedding_function = (
         SentenceTransformerEmbeddingFunction(
-            model_name="all-MiniLM-L6-v2",
-            device="cpu"
+            model_name="all-MiniLM-L6-v2"
         )
     )
 
@@ -17,9 +16,13 @@ class EmbeddingService:
         chunks
     ):
 
-        return cls.embedding_function(
-            chunks
+        embeddings = (
+            cls.embedding_function(
+                chunks
+            )
         )
+
+        return embeddings
 
 
     @classmethod
