@@ -4,35 +4,32 @@ from chromadb.utils.embedding_functions import (
 
 class EmbeddingService:
 
-    embedding_function = (
-        SentenceTransformerEmbeddingFunction(
-            model_name="all-MiniLM-L6-v2"
-        )
-    )
+    embedding_function = None
 
     @classmethod
-    def create_embeddings(
-        cls,
-        chunks
-    ):
+    def get_embedding_function(cls):
 
-        embeddings = (
-            cls.embedding_function(
-                chunks
+        if cls.embedding_function is None:
+            cls.embedding_function = (
+                SentenceTransformerEmbeddingFunction(
+                    model_name="all-MiniLM-L6-v2"
+                )
             )
-        )
+
+        return cls.embedding_function
+
+    @classmethod
+    def create_embeddings(cls, chunks):
+
+        embedding_function = cls.get_embedding_function()
+
+        embeddings = embedding_function(chunks)
 
         return embeddings
 
-
     @classmethod
-    def create_query_embedding(
-        cls,
-        text
-    ):
+    def create_query_embedding(cls, text):
 
-        return (
-            cls.embedding_function(
-                [text]
-            )[0]
-        )
+        embedding_function = cls.get_embedding_function()
+
+        return embedding_function([text])[0]
