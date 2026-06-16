@@ -42,7 +42,7 @@ export default function DiscoverPage() {
         <h2 className="mt-3 text-3xl font-semibold text-white">New papers from arXiv</h2>
         <p className="mt-4 text-slate-400">Browse the latest research and filter by topic to find the most relevant studies.</p>
         <div className="mt-8 grid gap-4 lg:grid-cols-[1.2fr_1fr]">
-          <SearchBar value={query} onChange={(event) => setQuery(event.target.value)} />
+          <SearchBar value={query} onChange={setQuery} />
           <div className="flex flex-wrap gap-3">
             {topics.map((topic) => (
               <TopicChip
