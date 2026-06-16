@@ -10,6 +10,7 @@ router=APIRouter(prefix="/chat",tags=["Chat"])
 
 @router.post("")
 async def ask_question(data:QuestionRequest, current_user:dict = Depends(get_current_user)):
+    print("CHAT PAPER ID:", data.paper_id)
     docs=RetrievalService.search(data.question,data.paper_id)
 
     answer=(LLMService.generate_answer(data.question,docs))

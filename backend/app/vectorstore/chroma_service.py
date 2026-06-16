@@ -8,9 +8,7 @@ collection = client.get_or_create_collection(
     name="research_papers"
 )
 
-
 class ChromaService:
-
     @staticmethod
     def store(
         paper_id,
@@ -27,26 +25,17 @@ class ChromaService:
 
 
         metadatas=[
-
             {
                 "paper_id":
                 paper_id
             }
 
             for _ in chunks
-
         ]
 
-
         collection.add(
-
             ids=ids,
-
             documents=chunks,
-
-            embeddings=
-            vectors.tolist(),
-
-            metadatas=
-            metadatas
+            embeddings=vectors,
+            metadatas=metadatas
         )

@@ -26,19 +26,15 @@ class RetrievalService:
         question
     )
 )
-        results=(
-    get_collection().query(
-        query_embeddings=[
-            query_embedding
-        ],
+        results = get_collection().query(
+    query_embeddings=[query_embedding],
+    n_results=4,
+    where={
+        "paper_id": paper_id
+    }
+)
 
-        n_results=4,
+        print("PAPER ID:", paper_id)
+        print("RETRIEVAL RESULTS:", results)
 
-        where={
-            "paper_id":
-            paper_id
-        }
-    ))
-        return results[
-            "documents"
-        ][0]
+        return results["documents"][0]

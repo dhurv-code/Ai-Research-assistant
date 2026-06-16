@@ -14,7 +14,7 @@ export default function ChatPage() {
   useEffect(() => {
     fetchPapers().then((result) => {
       setPapers(result)
-      setSelectedId(result?.[0]?.id || '')
+      setSelectedId(result?.[0]?._id || '')
     })
   }, [])
 
@@ -34,7 +34,7 @@ export default function ChatPage() {
     setLoading(false)
   }
 
-  const selectedPaper = papers.find((paper) => paper.id === selectedId)
+  const selectedPaper = papers.find((paper) => paper._id === selectedId)
 
   return (
     <div className="space-y-8">
@@ -50,7 +50,7 @@ export default function ChatPage() {
             className="max-w-xs rounded-3xl border border-white/10 bg-slate-900/70 px-4 py-3 text-sm text-slate-100 shadow-inner outline-none transition focus:border-sky-400"
           >
             {papers.map((paper) => (
-              <option key={paper.id} value={paper.id}>{paper.title}</option>
+              <option key={paper._id} value={paper._id}>{paper.title}</option>
             ))}
           </select>
         </div>
