@@ -26,7 +26,8 @@ export default function UploadPage() {
       return
     }
     setStatus('Upload complete')
-    setRecent((current) => [response, ...current].slice(0, 4))
+    const papers = await fetchPapers();
+    setRecent(papers.slice(0, 4));
   }
 
   return (

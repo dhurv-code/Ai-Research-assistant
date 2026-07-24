@@ -168,9 +168,10 @@ export async function fetchPapers() {
         title: paper.title || paper.filename || 'Untitled paper',
       }))
     }
-    return fallbackPapers
+    return [];
   } catch (error) {
-    return fallbackPapers
+    console.error(error);
+    return [];
   }
 }
 
