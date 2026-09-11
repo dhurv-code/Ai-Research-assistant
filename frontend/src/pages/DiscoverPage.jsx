@@ -60,7 +60,7 @@ export default function DiscoverPage() {
       ) : (
         <div className="grid gap-6 xl:grid-cols-2">
           {results.map((paper) => (
-            <PaperCard key={paper.id || paper.title} paper={paper} />
+            <PaperCard key={paper._id || paper.title} paper={paper} />
           ))}
           {results.length === 0 && (
             <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-10 text-center text-slate-400">

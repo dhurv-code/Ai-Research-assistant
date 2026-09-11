@@ -175,14 +175,24 @@ export async function fetchPapers() {
   }
 }
 
+
 export async function fetchPaperById(id) {
-  const papers = await fetchPapers()
-  return (
-    papers.find((paper) => paper.id?.toString() === id || paper.slug === id) ||
-    papers[Number(id)] ||
-    papers[0]
-  )
+  try {
+    const { data } = await api.get(`/papers/${id}`)
+    return data
+  } catch (error) {
+    console.error('Failed to fetch paper:', error)
+    return null
+  }
 }
+// export async function fetchPaperById(id) {
+//   const papers = await fetchPapers()
+//   return (
+//     papers.find((paper) => paper.id?.toString() === id || paper.slug === id) ||
+//     papers[Number(id)] ||
+//     papers[0]
+//   )
+// }
 
 export async function fetchTopics() {
   try {

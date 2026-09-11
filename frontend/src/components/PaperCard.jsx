@@ -3,6 +3,7 @@ import { excerpt } from '../utils/format'
 import { Link } from 'react-router-dom'
 
 export default function PaperCard({ paper }) {
+  // console.log("PAPER DATA:", paper)
   return (
     <article className="group rounded-[2rem] border border-white/10 bg-slate-950/80 p-6 shadow-soft transition hover:-translate-y-1 hover:border-sky-400/30">
       <div className="flex items-start justify-between gap-4">
@@ -24,7 +25,7 @@ export default function PaperCard({ paper }) {
       </div>
       <div className="mt-6 flex items-center justify-between gap-4">
         <Link
-          to={`/papers/${paper.id || paper.slug}`}
+          to={`/papers/${paper._id}`}
           className="inline-flex items-center gap-2 rounded-full bg-sky-400/10 px-4 py-2 text-sm font-medium text-sky-200 transition hover:bg-sky-400/20"
         >
           View details
