@@ -25,7 +25,7 @@ export default function PaperCard({ paper }) {
       </div>
       <div className="mt-6 flex items-center justify-between gap-4">
         <Link
-          to={`/papers/${paper._id}`}
+          to={`/papers/${paper.arxiv_id || paper.id || paper.slug}`}
           className="inline-flex items-center gap-2 rounded-full bg-sky-400/10 px-4 py-2 text-sm font-medium text-sky-200 transition hover:bg-sky-400/20"
         >
           View details

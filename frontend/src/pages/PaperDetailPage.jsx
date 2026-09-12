@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { Bookmark, ArrowRight } from 'lucide-react'
-import { fetchPaperById } from '../services/api'
+import { Bookmark, ArrowRight, Download, } from 'lucide-react'
+import { fetchPaperById, downloadPaper, } from '../services/api'
 import StatusPill from '../components/StatusPill'
 
 export default function PaperDetailPage() {
@@ -51,14 +51,19 @@ export default function PaperDetailPage() {
           <div className="rounded-[2rem] border border-white/10 bg-slate-950/70 p-8 shadow-soft backdrop-blur-xl">
             <p className="text-sm uppercase tracking-[0.3em] text-sky-300/80">Paper actions</p>
             <div className="mt-6 space-y-4">
-              <a
-                href={paper.pdf_link || '#'}
-                target="_blank"
-                rel="noreferrer"
-                className="block rounded-3xl bg-sky-400/10 px-5 py-4 text-sm text-sky-200 transition hover:bg-sky-400/20"
+              <button
+                type="button"
+                onClick={() =>
+                  downloadPaper(
+                    paper.arxiv_id || paper.id
+                  )
+                }
+                className="flex w-full items-center justify-between rounded-3xl bg-sky-400/10 px-5 py-4 text-sm text-sky-200 transition hover:bg-sky-400/20"
               >
-                Download PDF
-              </a>
+                <span>Download PDF</span>
+
+                <Download className="h-4 w-4" />
+              </button>
               <Link
                 to="/chat"
                 className="block rounded-3xl bg-white/5 px-5 py-4 text-sm text-slate-100 transition hover:bg-white/10"

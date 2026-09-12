@@ -141,22 +141,58 @@ const fallbackActivity = [
   },
 ]
 
-export async function fetchDiscoverPapers() {
+export async function fetchDiscoverPapers({
+  query = 'machine learning',
+  page = 1,
+  limit = 20,
+} = {}) {
   try {
-    const { data } = await api.get('/discover')
+    const { data } = await api.get('/discover', {
+      params: {
+        query,
+        page,
+        limit,
+      },
+    })
+
     if (Array.isArray(data)) {
-      return data
+      return {
+        papers: data,
+        page,
+        limit,
+        has_more: data.length === limit,
+      }
     }
 
-    if (data?.papers && Array.isArray(data.papers)) {
-      return data.papers
-    }
-
-    return fallbackPapers
+    return data
   } catch (error) {
-    return fallbackPapers
+    console.error('Failed to fetch arXiv papers:', error)
+
+    return {
+      papers: [],
+      page,
+      limit,
+      has_more: false,
+    }
   }
 }
+
+// export async function fetchDiscoverPapers() {
+//   try {
+//     const { data } = await api.get('/discover')
+//     if (Array.isArray(data)) {
+//       return data
+//     }
+
+//     if (data?.papers && Array.isArray(data.papers)) {
+//       return data.papers
+//     }
+
+//     return fallbackPapers
+//   } catch (error) {
+//     return fallbackPapers
+//   }
+// }
 
 export async function fetchPapers() {
   try {
@@ -178,10 +214,13 @@ export async function fetchPapers() {
 
 export async function fetchPaperById(id) {
   try {
-    const { data } = await api.get(`/papers/${id}`)
+    const { data } = await api.get(
+      `/discover/paper/${encodeURIComponent(id)}`
+    )
+
     return data
   } catch (error) {
-    console.error('Failed to fetch paper:', error)
+    console.error('Failed to fetch arXiv paper:', error)
     return null
   }
 }
@@ -356,6 +395,39 @@ export async function fetchTrendingTopics() {
   } catch {
     return fallbackTopics
   }
+}
+
+export async function downloadPaper(arxivId) {
+  try {
+    const response = await api.get(
+      `/discover/paper/${encodeURIComponent(arxivId)}/download`,
+      {
+        responseType: 'blob',
+      }
+    )
+
+    const blob = new Blob([response.data], {
+      type: 'application/pdf',
+    })
+
+    const url = window.URL.createObjectURL(blob)
+
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `${arxivId.replace(/\//g, '_')}.pdf`
+
+    document.body.appendChild(link)
+    link.click()
+
+    link.remove()
+    window.URL.revokeObjectURL(url)
+
+  } catch (error) {
+    console.error('Failed to download paper:', error)
+  }
+}
+export function getPaperDownloadUrl(arxivId) {
+  return `/discover/paper/${encodeURIComponent(arxivId)}/download`
 }
 
 export default api
