@@ -1,10 +1,4 @@
-import os
-
-os.environ["TOKENIZERS_PARALLELISM"] = "false"
-os.environ["OMP_NUM_THREADS"] = "1"
-os.environ["MKL_NUM_THREADS"] = "1"
-
-from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
+from chromadb.utils.embedding_functions import DefaultEmbeddingFunction
 
 
 class EmbeddingService:
@@ -15,10 +9,7 @@ class EmbeddingService:
     def get_embedding_function(cls):
 
         if cls.embedding_function is None:
-            cls.embedding_function = SentenceTransformerEmbeddingFunction(
-                model_name="all-MiniLM-L6-v2",
-                device="cpu"
-            )
+            cls.embedding_function = DefaultEmbeddingFunction()
 
         return cls.embedding_function
 
@@ -27,9 +18,7 @@ class EmbeddingService:
 
         embedding_function = cls.get_embedding_function()
 
-        embeddings = embedding_function(chunks)
-
-        return embeddings
+        return embedding_function(chunks)
 
     @classmethod
     def create_query_embedding(cls, text):
@@ -39,10 +28,14 @@ class EmbeddingService:
         return embedding_function([text])[0]
 
 
+# import os
 
-# from chromadb.utils.embedding_functions import (
-#     SentenceTransformerEmbeddingFunction
-# )
+# os.environ["TOKENIZERS_PARALLELISM"] = "false"
+# os.environ["OMP_NUM_THREADS"] = "1"
+# os.environ["MKL_NUM_THREADS"] = "1"
+
+# from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
+
 
 # class EmbeddingService:
 
@@ -52,10 +45,9 @@ class EmbeddingService:
 #     def get_embedding_function(cls):
 
 #         if cls.embedding_function is None:
-#             cls.embedding_function = (
-#                 SentenceTransformerEmbeddingFunction(
-#                     model_name="all-MiniLM-L6-v2"
-#                 )
+#             cls.embedding_function = SentenceTransformerEmbeddingFunction(
+#                 model_name="all-MiniLM-L6-v2",
+#                 device="cpu"
 #             )
 
 #         return cls.embedding_function
@@ -75,3 +67,5 @@ class EmbeddingService:
 #         embedding_function = cls.get_embedding_function()
 
 #         return embedding_function([text])[0]
+
+
