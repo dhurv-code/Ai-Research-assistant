@@ -17,8 +17,8 @@ const links = [
   { label: 'Discover Papers', to: '/discover', icon: BookOpen },
   { label: 'Upload Paper', to: '/upload', icon: FilePlus },
   { label: 'Chat', to: '/chat', icon: Cpu },
-  { label: 'Topics', to: '/topics', icon: Sparkles },
-  { label: 'History', to: '/history', icon: Clock3 },
+  // { label: 'Topics', to: '/topics', icon: Sparkles },
+  // { label: 'History', to: '/history', icon: Clock3 },
   { label: 'Settings', to: '/settings', icon: Settings },
 ]
 

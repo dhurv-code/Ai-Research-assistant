@@ -8,8 +8,8 @@ import DiscoverPage from './pages/DiscoverPage'
 import PaperDetailPage from './pages/PaperDetailPage'
 import UploadPage from './pages/UploadPage'
 import ChatPage from './pages/ChatPage'
-import TopicsPage from './pages/TopicsPage'
-import HistoryPage from './pages/HistoryPage'
+// import TopicsPage from './pages/TopicsPage'
+// import HistoryPage from './pages/HistoryPage'
 import SettingsPage from './pages/SettingsPage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
@@ -45,8 +45,8 @@ function App() {
               <Route path="discover" element={<DiscoverPage />} />
               <Route path="upload" element={<UploadPage />} />
               <Route path="chat" element={<ChatPage />} />
-              <Route path="topics" element={<TopicsPage />} />
-              <Route path="history" element={<HistoryPage />} />
+              {/* <Route path="topics" element={<TopicsPage />} /> */}
+              {/* <Route path="history" element={<HistoryPage />} /> */}
               <Route path="settings" element={<SettingsPage />} />
               <Route path="papers/:id" element={<PaperDetailPage />} />
             </Route>
