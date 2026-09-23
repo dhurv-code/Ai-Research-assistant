@@ -137,9 +137,8 @@ Ask Questions
    ↓
 Build Research Knowledge Base
 
+Live Link, it may take time to connect with backend(approx 10-15 seconds)
+https://ai-research-assistant-tan-chi.vercel.app/
 
-
-Author:
-
-Dhuruv Kumar Gupta
+Author: Dhuruv Kumar Gupta
 B.Tech CSE (AI/ML) Student
